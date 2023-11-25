@@ -17,14 +17,16 @@ env:
 
 on:
   workflow_dispatch:
-#  schedule:
-#    - cron: 0 */18 * * *
 
 jobs:
   check:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Set up Node.js 16
+      uses: actions/setup-node@v4
+      with:
+        node-version: 16
 
     - name: Get Commit Hash
       id: getHash
@@ -57,4 +59,3 @@ jobs:
       with:
         retain_days: 1
         keep_minimum_runs: 1
-
