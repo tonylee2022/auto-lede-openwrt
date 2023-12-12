@@ -87,12 +87,11 @@ jobs:
 
     - name: Notify on Compile Status
       if: always()
-      uses: appleboy/telegram-action@v0.1.0
+      uses: xinthink/action-telegram@v1.1
       with:
-        to: ${{ secrets.TELEGRAM_CHAT_ID }}
-        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-        message: |
-          The compile status is ${{ job.status }}.
+        botToken: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        chatId: ${{ secrets.TELEGRAM_CHAT_ID }}
+        jobStatus: ${{ job.status }}
 
 
     - name: Load custom feeds
