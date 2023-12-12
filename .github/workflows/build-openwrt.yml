@@ -87,7 +87,7 @@ jobs:
 
     - name: Notify on Compile Status
       if: always()
-      uses: tonylee2022/telegram-action@master
+      uses: appleboy/telegram-action@v0.1.1
       with:
         destination: ${{ secrets.TELEGRAM_CHAT_ID  }}
         token: ${{ secrets.TELEGRAM_BOT_TOKEN }}      
