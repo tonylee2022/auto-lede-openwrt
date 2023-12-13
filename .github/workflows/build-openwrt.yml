@@ -77,22 +77,12 @@ jobs:
         sudo mkdir -p /workdir
         sudo chown $USER:$GROUPS /workdir
 
-
     - name: Clone source code
       working-directory: /workdir
       run: |
         df -hT $PWD
         git clone $REPO_URL -b $REPO_BRANCH openwrt
         ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
-
-    - name: Notify on Compile Status
-      if: always()
-      uses: appleboy/telegram-action@v0.1.1
-      with:
-        destination: ${{ secrets.TELEGRAM_CHAT_ID  }}
-        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}      
-        message: |
-          The compile status is ${{ job.status }}.
 
     - name: Load custom feeds
       run: |
@@ -131,6 +121,13 @@ jobs:
         find dl -size -1024c -exec ls -l {} \;
         find dl -size -1024c -exec rm -f {} \;
 
+    - name: Send Telegram notification
+      uses: appleboy/telegram-action@v0.1.1
+      with:
+        token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+        to: ${{ secrets.TELEGRAM_CHAT_ID }}
+        message: 'Download package ${{ job.status }}'
+    
     - name: Compile the firmware
       id: compile
       run: |
