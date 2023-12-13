@@ -121,7 +121,7 @@ jobs:
         find dl -size -1024c -exec rm -f {} \;
 
     - name: Send Telegram notification
-      uses: appleboy/drone-telegram@master
+      uses: appleboy/telegram-action@master
       with:
         token: ${{ secrets.TELEGRAM_BOT_TOKEN }}
         to: ${{ secrets.TELEGRAM_CHAT_ID }}
